@@ -1,5 +1,4 @@
 __pycache__/
 *.pyc
 relatorio_*.txt
-dashboard_dados.json
 dashboard.html

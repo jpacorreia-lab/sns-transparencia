@@ -1,0 +1,34 @@
+name: Actualizar Dashboard SNS
+
+on:
+  schedule:
+    - cron: "0 6 10 * *"   # dia 10 de cada mês às 06:00 UTC
+  workflow_dispatch:         # permite correr manualmente
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependências
+        run: pip install requests
+
+      - name: Gerar dados e dashboard
+        run: |
+          python build_dashboard.py --anos 3 --output index.html
+
+      - name: Commit e push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html dashboard_dados.json
+          git diff --staged --quiet || git commit -m "chore: actualizar dados SNS $(date +'%Y-%m')"
+          git push

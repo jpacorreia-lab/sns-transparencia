@@ -53,6 +53,10 @@ data = load()
 periodos_todos = data["periodos"]
 CORES = ["#0066cc","#dc3545","#28a745","#fd7e14","#6f42c1","#20c997","#17a2b8"]
 
+def rgba(hex_color, alpha):
+    r, g, b = int(hex_color[1:3],16), int(hex_color[3:5],16), int(hex_color[5:7],16)
+    return f"rgba({r},{g},{b},{alpha})"
+
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 def fmt(v, u=""):
@@ -154,7 +158,7 @@ def chart(series_list, titulo="", modo="Anual", tipo_chart="line", stack=False):
             agg = agregar_anual(serie, periodos, tipo_agg)
             ys  = [agg.get(a) for a in anos]
             cor = CORES[i % len(CORES)]
-            fig.add_trace(go.Bar(x=anos, y=ys, name=label, marker_color=cor+"cc"))
+            fig.add_trace(go.Bar(x=anos, y=ys, name=label, marker_color=rgba(cor, 0.8)))
             tx, ty = trend_line(anos, ys)
             if tx:
                 fig.add_trace(go.Scatter(x=tx, y=ty, name=f"↗ {label}",
@@ -168,7 +172,7 @@ def chart(series_list, titulo="", modo="Anual", tipo_chart="line", stack=False):
             ys_mm  = [media_movel(serie, periodos).get(p) for p in periodos]
             cor = CORES[i % len(CORES)]
             fig.add_trace(go.Scatter(x=periodos, y=ys_raw, name=label,
-                mode="lines", line=dict(color=cor+"44", width=1), showlegend=True))
+                mode="lines", line=dict(color=rgba(cor, 0.3), width=1), showlegend=True))
             fig.add_trace(go.Scatter(x=periodos, y=ys_mm, name=f"MM6 {label}",
                 mode="lines", line=dict(color=cor, width=2.5)))
 
@@ -177,7 +181,7 @@ def chart(series_list, titulo="", modo="Anual", tipo_chart="line", stack=False):
             ys  = [serie.get(p) for p in periodos]
             cor = CORES[i % len(CORES)]
             if tipo_chart == "bar":
-                fig.add_trace(go.Bar(x=periodos, y=ys, name=label, marker_color=cor+"cc"))
+                fig.add_trace(go.Bar(x=periodos, y=ys, name=label, marker_color=rgba(cor, 0.8)))
             else:
                 fig.add_trace(go.Scatter(x=periodos, y=ys, name=label,
                     mode="lines+markers", line=dict(color=cor, width=2.5),

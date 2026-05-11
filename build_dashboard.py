@@ -27,18 +27,34 @@ SECOES = {
             "consultas-em-tempo-real": {
                 "nome": "1ªs Consultas em Tempo Adequado",
                 "campo_tempo": "tempo",
-                "tipo_tempo": "date",
                 "indicadores": {
-                    "1as_consultas_realizadas_em_tempo_adequado": {"label": "% 1ªs Consultas em TMRG", "tipo": "media", "unidade": "%"},
+                    "1as_consultas_realizadas_em_tempo_adequado": {"label": "% 1ªs Consultas em TMRG", "tipo": "media", "unidade": "%", "invertido": True},
                     "no_primeiras_ce_realizadas_com_registo_no_cth": {"label": "Total 1ªs Consultas CTH", "tipo": "soma", "unidade": ""},
                 },
             },
             "demora-media-antes-da-cirurgia": {
                 "nome": "Demora Média antes da Cirurgia",
                 "campo_tempo": "tempo",
-                "tipo_tempo": "date",
                 "indicadores": {
-                    "demora_media_antes_da_cirurgia": {"label": "Demora Média (dias)", "tipo": "media", "unidade": " dias"},
+                    "demora_media_antes_da_cirurgia": {"label": "Demora Média pré-Cirurgia (dias)", "tipo": "media", "unidade": " dias", "invertido": True},
+                },
+            },
+            "atendimentos-em-urgencia-triagem-manchester": {
+                "nome": "Triagem de Manchester nas Urgências",
+                "campo_tempo": "tempo",
+                "indicadores": {
+                    "no_de_atendimentos_em_urgencia_su_triagem_manchester_verde": {"label": "Triagem Verde (não urgente)", "tipo": "soma", "unidade": ""},
+                    "no_de_atendimentos_em_urgencia_su_triagem_manchester_azul":  {"label": "Triagem Azul (pouco urgente)", "tipo": "soma", "unidade": ""},
+                    "no_de_atendimentos_em_urgencia_su_triagem_manchester_amarela": {"label": "Triagem Amarela (urgente)", "tipo": "soma", "unidade": ""},
+                    "no_de_atendimentos_em_urgencia_su_triagem_manchester_vermelha": {"label": "Triagem Vermelha (emergência)", "tipo": "soma", "unidade": ""},
+                },
+            },
+            "utentes-inscritos-em-cuidados-de-saude-primarios": {
+                "nome": "Cobertura de Médico de Família",
+                "campo_tempo": "periodo",
+                "indicadores": {
+                    "total_utentes_com_mdf_atribuido0": {"label": "% Utentes COM médico de família", "tipo": "media", "unidade": "%", "invertido": False},
+                    "total_utentes_sem_mdf_atribuido": {"label": "Utentes SEM médico de família", "tipo": "soma", "unidade": "", "invertido": True},
                 },
             },
         },
@@ -50,7 +66,6 @@ SECOES = {
             "intervencoes-cirurgicas": {
                 "nome": "Intervenções Cirúrgicas",
                 "campo_tempo": "tempo",
-                "tipo_tempo": "date",
                 "indicadores": {
                     "no_intervencoes_cirurgicas_programadas": {"label": "Cirurgias Programadas", "tipo": "soma", "unidade": ""},
                     "no_intervencoes_cirurgicas_de_ambulatorio": {"label": "Cirurgias Ambulatório", "tipo": "soma", "unidade": ""},
@@ -60,7 +75,6 @@ SECOES = {
             "atendimentos-por-tipo-de-urgencia-hospitalar-link": {
                 "nome": "Urgências Hospitalares",
                 "campo_tempo": "tempo",
-                "tipo_tempo": "date",
                 "indicadores": {
                     "total_urgencias": {"label": "Total Urgências", "tipo": "soma", "unidade": ""},
                     "urgencias_geral": {"label": "Urgências Gerais", "tipo": "soma", "unidade": ""},
@@ -70,17 +84,23 @@ SECOES = {
             "01_sica_evolucao-mensal-das-consultas-medicas-hospitalares": {
                 "nome": "Consultas Hospitalares",
                 "campo_tempo": "tempo",
-                "tipo_tempo": "date",
                 "indicadores": {
                     "no_de_consultas_medicas_total": {"label": "Total Consultas", "tipo": "soma", "unidade": ""},
                     "no_de_primeiras_consultas": {"label": "Primeiras Consultas", "tipo": "soma", "unidade": ""},
                     "no_de_consultas_subsequentes": {"label": "Consultas Subsequentes", "tipo": "soma", "unidade": ""},
                 },
             },
+            "evolucao-das-consultas-medicas-nos-csp": {
+                "nome": "Consultas nos Cuidados de Saúde Primários",
+                "campo_tempo": "tempo",
+                "indicadores": {
+                    "no_de_consultas_medicas_presencias_qt": {"label": "Consultas Presenciais CSP", "tipo": "soma", "unidade": ""},
+                    "no_de_consultas_medicas_nao_presenciais_ou_inespecificas_qt": {"label": "Consultas Não Presenciais CSP", "tipo": "soma", "unidade": ""},
+                },
+            },
             "atividade-de-internamento-hospitalar": {
                 "nome": "Internamento Hospitalar",
                 "campo_tempo": "tempo",
-                "tipo_tempo": "date",
                 "indicadores": {
                     "doentes_saidos": {"label": "Doentes Saídos", "tipo": "soma", "unidade": ""},
                     "dias_de_internamento": {"label": "Dias de Internamento", "tipo": "soma", "unidade": ""},
@@ -95,38 +115,34 @@ SECOES = {
             "agregados-economico-financeiros": {
                 "nome": "Agregados Económico-Financeiros",
                 "campo_tempo": "tempo",
-                "tipo_tempo": "date",
                 "indicadores": {
-                    "gastos_operacionais": {"label": "Gastos Operacionais (€)", "tipo": "soma", "unidade": "€"},
-                    "rendimentos_operacionais": {"label": "Rendimentos Operacionais (€)", "tipo": "soma", "unidade": "€"},
-                    "resultado_liquido": {"label": "Resultado Líquido (€)", "tipo": "soma", "unidade": "€"},
+                    "gastos_operacionais": {"label": "Gastos Operacionais", "tipo": "soma", "unidade": "€", "invertido": True},
+                    "rendimentos_operacionais": {"label": "Rendimentos Operacionais", "tipo": "soma", "unidade": "€"},
+                    "resultado_liquido": {"label": "Resultado Líquido", "tipo": "soma", "unidade": "€", "invertido": True},
                 },
             },
             "divida-total-vencida-e-pagamentos": {
-                "nome": "Dívida e Pagamentos",
+                "nome": "Dívida e Pagamentos em Atraso",
                 "campo_tempo": "periodo",
-                "tipo_tempo": "date",
                 "indicadores": {
-                    "divida_total_fornecedores_externos": {"label": "Dívida Total (€)", "tipo": "soma", "unidade": "€"},
-                    "divida_vencida_fornecedores_externos": {"label": "Dívida Vencida (€)", "tipo": "soma", "unidade": "€"},
-                    "pagamentos_em_atraso": {"label": "Pagamentos em Atraso (€)", "tipo": "soma", "unidade": "€"},
+                    "divida_total_fornecedores_externos": {"label": "Dívida Total", "tipo": "soma", "unidade": "€", "invertido": True},
+                    "divida_vencida_fornecedores_externos": {"label": "Dívida Vencida", "tipo": "soma", "unidade": "€", "invertido": True},
+                    "pagamentos_em_atraso": {"label": "Pagamentos em Atraso", "tipo": "soma", "unidade": "€", "invertido": True},
                 },
             },
             "despesa-com-medicamentos-nos-hospitais-do-sns": {
                 "nome": "Despesa Medicamentos Hospitalar",
                 "campo_tempo": "tempo",
-                "tipo_tempo": "date",
                 "indicadores": {
-                    "encargos_sns_hospitalar": {"label": "Encargos SNS Hospitalar (€)", "tipo": "soma", "unidade": "€"},
+                    "encargos_sns_hospitalar": {"label": "Encargos SNS Hospitalar", "tipo": "soma", "unidade": "€", "invertido": True},
                 },
             },
             "despesa-com-medicamentos-no-ambulatorio-sns": {
                 "nome": "Despesa Medicamentos Ambulatório",
                 "campo_tempo": "tempo",
-                "tipo_tempo": "date",
                 "indicadores": {
-                    "encargos_sns_ambulatorio": {"label": "Encargos SNS Ambulatório (€)", "tipo": "soma", "unidade": "€"},
-                    "valor_pvp_ambulatorio": {"label": "Valor PVP Ambulatório (€)", "tipo": "soma", "unidade": "€"},
+                    "encargos_sns_ambulatorio": {"label": "Encargos SNS Ambulatório", "tipo": "soma", "unidade": "€", "invertido": True},
+                    "valor_pvp_ambulatorio": {"label": "Valor PVP Ambulatório", "tipo": "soma", "unidade": "€", "invertido": True},
                 },
             },
         },
@@ -138,7 +154,6 @@ SECOES = {
             "trabalhadores-por-grupo-profissional": {
                 "nome": "Trabalhadores por Grupo Profissional",
                 "campo_tempo": "periodo",
-                "tipo_tempo": "date",
                 "indicadores": {
                     "total_geral": {"label": "Total Trabalhadores", "tipo": "soma", "unidade": ""},
                     "medicos_s_internos": {"label": "Médicos (excl. internos)", "tipo": "soma", "unidade": ""},
@@ -150,9 +165,16 @@ SECOES = {
             "contagem-dos-dias-de-ausencia-ao-trabalho-segundo-o-motivo-de-ausencia": {
                 "nome": "Ausências ao Trabalho",
                 "campo_tempo": "tempo",
-                "tipo_tempo": "date",
                 "indicadores": {
-                    "valor": {"label": "Dias de Ausência", "tipo": "soma", "unidade": ""},
+                    "valor": {"label": "Dias de Ausência", "tipo": "soma", "unidade": "", "invertido": True},
+                },
+            },
+            "contagem-das-horas-de-trabalho-nocturno-normal-e-extraordinario": {
+                "nome": "Trabalho Suplementar",
+                "campo_tempo": "tempo",
+                "indicadores": {
+                    "trabalho_extraordinario_diurno": {"label": "Trabalho Extraordinário Diurno (h)", "tipo": "soma", "unidade": "", "invertido": True},
+                    "trabalho_extraordinario_nocturno": {"label": "Trabalho Extraordinário Nocturno (h)", "tipo": "soma", "unidade": "", "invertido": True},
                 },
             },
         },
